@@ -9,7 +9,6 @@ import MusicPlayer from "./components/MusicPlayer";
 import Countdown from "./components/Countdown";
 import ShareButtons from "./components/ShareButtons";
 import Balloons from "./components/Balloons";
-import Fireworks from "./components/Fireworks";
 import CakeAnimation from "./components/CakeAnimation";
 import RandomQuotes from "./components/RandomQuotes";
 import ScreenshotButton from "./components/ScreenshotButton";
@@ -66,11 +65,10 @@ export default function Home() {
           <BirthdayCard name={name} message={message} image={image} theme={theme} />
           <ConfettiEffect />
           <Balloons />
-          <Countdown targetDate="2025-02-10" />
-          <Fireworks />
+          <Countdown targetDate="2025-02-12" />
           <RandomQuotes />
           <HandwrittenNote message={message} />
-          <AIBirthdayMessage name={name} />
+          {/* <AIBirthdayMessage name={name} /> */}
         </>
       )}
 
@@ -93,11 +91,10 @@ export default function Home() {
       {name && <ShareButtons name={name} message={message} />}
       {name && <Guestbook />}
       {name && <LiveChat />}
-      {name && <PhotoCollage />}
-      {name && <VoiceMessage />}
+      {/* {name && <PhotoCollage />} */}
       {name && <Album /> }
 
-      <PartyMode partyMode={partyMode} setPartyMode={setPartyMode} />
+      {/* <PartyMode partyMode={partyMode} setPartyMode={setPartyMode} /> */}
     </div>
   );
 }

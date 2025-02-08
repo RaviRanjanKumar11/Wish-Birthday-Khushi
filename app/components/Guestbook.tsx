@@ -13,7 +13,7 @@ const Guestbook = () => {
 
   return (
     <div className="mt-4">
-      <h2 className="text-xl font-bold">📖 Guestbook</h2>
+      {/* <h2 className="text-xl font-bold">📖 Guestbook</h2> */}
       <input
         type="text"
         placeholder="Leave a wish..."

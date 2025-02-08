@@ -20,7 +20,7 @@ const ScreenshotButton = () => {
       onClick={takeScreenshot}
       className="mt-4 bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
     >
-      📸 Capture & Download
+      📸
     </button>
   );
 };
