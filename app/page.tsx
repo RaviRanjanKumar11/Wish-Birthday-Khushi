@@ -25,7 +25,6 @@ export default function Home() {
   const [theme, setTheme] = useState<"pink" | "blue" | "green" | "default">("default");
   const [showSurprise, setShowSurprise] = useState(false);
   const [playMusic, setPlayMusic] = useState(false);
-  const [partyMode, setPartyMode] = useState(false);
 
   return (
     <div
@@ -64,7 +63,6 @@ export default function Home() {
           <Countdown targetDate="2025-02-12" />
           <RandomQuotes />
           <HandwrittenNote message={message} />
-          {/* <AIBirthdayMessage name={name} /> */}
         </>
       )}
 
@@ -87,10 +85,7 @@ export default function Home() {
       {name && <ShareButtons name={name} message={message} />}
       {name && <Guestbook />}
       {name && <LiveChat />}
-      {/* {name && <PhotoCollage />} */}
       {name && <Album /> }
-
-      {/* <PartyMode partyMode={partyMode} setPartyMode={setPartyMode} /> */}
     </div>
   );
 }
