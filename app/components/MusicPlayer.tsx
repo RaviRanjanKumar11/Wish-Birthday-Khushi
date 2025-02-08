@@ -3,7 +3,9 @@
 import { useEffect } from "react";
 
 interface Props {
-  music: string | null;
+  music: string;
+  playMusic: boolean;
+  setPlayMusic: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MusicPlayer: React.FC<Props> = ({ music }) => {

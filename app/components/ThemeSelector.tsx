@@ -1,7 +1,7 @@
 "use client";
 
 interface Props {
-  setTheme: (theme: string) => void;
+  setTheme: React.Dispatch<React.SetStateAction<"pink" | "blue" | "green" | "default">>;
 }
 
 const ThemeSelector: React.FC<Props> = ({ setTheme }) => {

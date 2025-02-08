@@ -27,7 +27,7 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const [music, setMusic] = useState<string | null>(null);
-  const [theme, setTheme] = useState("default");
+  const [theme, setTheme] = useState<"pink" | "blue" | "green" | "default">("default");
   const [showSurprise, setShowSurprise] = useState(false);
   const [playMusic, setPlayMusic] = useState(false);
   const [partyMode, setPartyMode] = useState(false);

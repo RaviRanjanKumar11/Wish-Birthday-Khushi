@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface Props {
   targetDate: string;
 }
 
 const Countdown: React.FC<Props> = ({ targetDate }) => {
-  const calculateTimeLeft = () => {
+  // Use `useCallback` to prevent function recreation on every render
+  const calculateTimeLeft = useCallback(() => {
     const difference = new Date(targetDate).getTime() - new Date().getTime();
     return {
       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
@@ -15,7 +16,7 @@ const Countdown: React.FC<Props> = ({ targetDate }) => {
       minutes: Math.floor((difference / 1000 / 60) % 60),
       seconds: Math.floor((difference / 1000) % 60),
     };
-  };
+  }, [targetDate]); // ✅ Depend on `targetDate`
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
@@ -24,10 +25,10 @@ const Countdown: React.FC<Props> = ({ targetDate }) => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [calculateTimeLeft]); // ✅ Depend on `calculateTimeLeft`
 
   return (
-    <div className="mt-4 md:text-xl text-md  font-bold">
+    <div className="mt-4 md:text-xl text-md font-bold">
       ⏳ {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s until the birthday! 🎂
     </div>
   );

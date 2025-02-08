@@ -1,8 +1,9 @@
-interface Props {
-    name: string;
-    image: string | null;
-    theme: string;
-  }
+type Props = {
+  name: string;
+  message: string;
+  image: string | null;
+  theme: "pink" | "blue" | "green" | "default";
+};
   
   const themeStyles = {
     pink: "bg-pink-400 text-white",

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Album: React.FC = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -8,9 +8,16 @@ const Album: React.FC = () => {
     const files = event.target.files;
     if (files) {
       const newImages = Array.from(files).map((file) => URL.createObjectURL(file));
-      setImages([...images, ...newImages]);
+      setImages((prev) => [...prev, ...newImages]);
     }
   };
+
+  // 🔴 Prevent Memory Leaks by revoking Blob URLs
+  useEffect(() => {
+    return () => {
+      images.forEach((src) => URL.revokeObjectURL(src));
+    };
+  }, [images]);
 
   return (
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-4xl mx-auto mt-6">
