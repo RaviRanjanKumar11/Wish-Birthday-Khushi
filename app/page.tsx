@@ -12,13 +12,9 @@ import Balloons from "./components/Balloons";
 import CakeAnimation from "./components/CakeAnimation";
 import RandomQuotes from "./components/RandomQuotes";
 import ScreenshotButton from "./components/ScreenshotButton";
-import PartyMode from "./components/PartyMode";
 import Guestbook from "./components/Guestbook";
-import AIBirthdayMessage from "./components/AIBirthdayMessage";
 import HandwrittenNote from "./components/HandwrittenNote";
 import LiveChat from "./components/LiveChat";
-import PhotoCollage from "./components/PhotoCollage";
-import VoiceMessage from "./components/VoiceMessage";
 import Album from "./components/Album";
 
 export default function Home() {
