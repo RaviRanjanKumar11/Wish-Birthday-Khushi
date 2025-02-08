@@ -1,0 +1,25 @@
+interface Props {
+    name: string;
+    image: string | null;
+    theme: string;
+  }
+  
+  const themeStyles = {
+    pink: "bg-pink-400 text-white",
+    blue: "bg-blue-400 text-white",
+    green: "bg-green-400 text-white",
+    default: "bg-white text-black",
+  };
+  
+  const BirthdayCard: React.FC<Props> = ({ name, image, theme }) => {
+    return (
+      <div className={`p-6 rounded-lg text-center shadow-lg mt-4 ${themeStyles[theme]}`}>
+        {image && <img src={image} alt="Uploaded" className="w-32 h-32 rounded-full mx-auto mb-4" />}
+        <h2 className="text-3xl font-bold">🎉 Happy Birthday, {name}! 🎂</h2>
+        <p className="mt-2 text-lg">Wishing you a fantastic day filled with joy and happiness! 🎁✨</p>
+      </div>
+    );
+  };
+  
+  export default BirthdayCard;
+  
