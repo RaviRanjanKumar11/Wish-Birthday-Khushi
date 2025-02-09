@@ -21,15 +21,15 @@ const UploadSection: React.FC<Props> = ({ setImage, setMusic }) => {
     }
   };
 
-  return (
-    <div className="flex flex-col items-center gap-4 mt-4">
-      <label className="cursor-pointer bg-white text-black px-4 py-2 rounded-lg">
-        📸 Upload Image
+  return (  
+    <div className="flex items-center gap-2 mt-2">
+      <label className="cursor-pointer bg-white text-black px-1 py-0 rounded-lg">
+        📸 Image
         <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
       </label>
 
-      <label className="cursor-pointer bg-white text-black px-4 py-2 rounded-lg">
-        🎵 Upload Music
+      <label className="cursor-pointer bg-white text-black px-1 py-0 rounded-lg">
+        🎵 Music
         <input type="file" accept="audio/*" className="hidden" onChange={handleMusicUpload} />
       </label>
     </div>

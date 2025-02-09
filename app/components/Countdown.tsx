@@ -7,7 +7,6 @@ interface Props {
 }
 
 const Countdown: React.FC<Props> = ({ targetDate }) => {
-  // Use `useCallback` to prevent function recreation on every render
   const calculateTimeLeft = useCallback(() => {
     const difference = new Date(targetDate).getTime() - new Date().getTime();
     return {
@@ -16,7 +15,7 @@ const Countdown: React.FC<Props> = ({ targetDate }) => {
       minutes: Math.floor((difference / 1000 / 60) % 60),
       seconds: Math.floor((difference / 1000) % 60),
     };
-  }, [targetDate]); // ✅ Depend on `targetDate`
+  }, [targetDate]);
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
@@ -25,11 +24,21 @@ const Countdown: React.FC<Props> = ({ targetDate }) => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
     return () => clearInterval(timer);
-  }, [calculateTimeLeft]); // ✅ Depend on `calculateTimeLeft`
+  }, [calculateTimeLeft]);
 
   return (
-    <div className="mt-4 md:text-xl text-md font-bold">
-      ⏳ {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s until the birthday! 🎂
+    <div className="text-3xl font-bold flex items-center space-x-3">
+      {/* 🔄 Dot Wave Loader */}
+      <div className="flex space-x-1 animate-spin">
+        <span className="w-3 h-3 bg-blue-500 rounded-full animate-bounce"></span>
+        <span className="w-3 h-3 bg-blue-500 rounded-full animate-bounce delay-200"></span>
+        <span className="w-3 h-3 bg-blue-500 rounded-full animate-bounce delay-400"></span>
+      </div>
+
+      {/* ⏳ Countdown Text */}
+      <span>
+        {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s until Khushi's birthday! 🎉
+      </span>
     </div>
   );
 };

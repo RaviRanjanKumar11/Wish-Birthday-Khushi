@@ -1,6 +1,9 @@
 "use client";
 
 import React from "react";
+import { FaSquareWhatsapp } from "react-icons/fa6";
+import { FaFacebookSquare,FaInstagramSquare,FaTwitterSquare } from "react-icons/fa";
+
 
 interface ShareButtonsProps {
   name: string;
@@ -15,24 +18,23 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ name, message }) => {
     whatsapp: `https://wa.me/?text=${text}%20${url}`,
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
     twitter: `https://twitter.com/intent/tweet?text=${text}%20${url}`,
+    instagram: `https://www.instagram.com/?url=${url}`,
   };
 
   return (
-    <div className="mt-4 flex gap-3">
+    <div className="mt-2 flex gap-2 mb-3">
       <a href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer">
-        <button className="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">
-          📲 WhatsApp
-        </button>
+        <FaSquareWhatsapp  size={32}/>
       </a>
       <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">
-          🔵 Facebook
-        </button>
+        <FaFacebookSquare size={32} />
       </a>
       <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer">
-        <button className="bg-sky-500 hover:bg-sky-700 text-white px-4 py-2 rounded">
-          🐦 Twitter
-        </button>
+        <FaTwitterSquare size={32} />
+      </a>
+      <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">
+        <FaInstagramSquare size={32} />
+      
       </a>
     </div>
   );

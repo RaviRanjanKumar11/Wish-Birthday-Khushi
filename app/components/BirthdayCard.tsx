@@ -14,8 +14,8 @@ type Props = {
   
   const BirthdayCard: React.FC<Props> = ({ name, image, theme }) => {
     return (
-      <div className={`p-6 rounded-lg text-center shadow-lg mt-4 ${themeStyles[theme]}`}>
-        {image && <img src={image} alt="Uploaded" className="w-32 h-32 rounded-full mx-auto mb-4" />}
+      <div className={`p-1 rounded-lg text-center shadow-lg mt-2 ${themeStyles[theme]}`}>
+        {image && <img src={image} alt="Uploaded" className="w-20 h-32 rounded-full mx-auto mb-4" />}
         <h2 className="text-3xl font-bold">🎉 Happy Birthday, {name}! 🎂</h2>
         <p className="mt-2 text-lg">Wishing you a fantastic day filled with joy and happiness! 🎁✨</p>
       </div>

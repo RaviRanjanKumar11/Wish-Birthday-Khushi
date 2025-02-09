@@ -16,6 +16,7 @@ import Guestbook from "./components/Guestbook";
 import HandwrittenNote from "./components/HandwrittenNote";
 import LiveChat from "./components/LiveChat";
 import Album from "./components/Album";
+import CandleEffect from "./components/CandleEffect";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -28,28 +29,29 @@ export default function Home() {
 
   return (
     <div
-  className="min-h-screen flex flex-col items-center justify-center text-white bg-cover bg-center relative"
+  className="min-h-screen flex flex-col items-center justify-center text-white bg-cover bg-center relative px-2"
   style={{
-    backgroundImage: "url('/bday.jpg')",
+    backgroundImage: "url('/khushi.png')",
     backgroundSize: "cover",
     backgroundPosition: "center",
   }}
 >
-      <h1 className="md:text-5xl text-xl font-bold mb-6">🎂 Create a Birthday Wish! 🎈</h1>
-
+<Countdown targetDate="2025-02-12" />
+      <h1 className="md:text-5xl text-xl font-bold mb-1">🎂 Create a Birthday Wish! 🎈</h1>
+  <CandleEffect />
       <input
         type="text"
         placeholder="Enter Name..."
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="px-4 py-2 rounded-md text-black"
+        className="px-2 py-1 rounded-md text-black"
       />
 
       <textarea
         placeholder="Write a personalized message..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        className="mt-4 px-4 py-2 rounded-md text-black w-full max-w-md"
+        className="mt-2 px-2 py-0 rounded-md text-black w-full max-w-xs md:max-w-md"
       />
 
       <UploadSection setImage={setImage} setMusic={setMusic} />
@@ -60,7 +62,7 @@ export default function Home() {
           <BirthdayCard name={name} message={message} image={image} theme={theme} />
           <ConfettiEffect />
           <Balloons />
-          <Countdown targetDate="2025-02-12" />
+          
           <RandomQuotes />
           <HandwrittenNote message={message} />
         </>
@@ -82,10 +84,11 @@ export default function Home() {
       )}
 
       {showSurprise && <CakeAnimation />}
-      {name && <ShareButtons name={name} message={message} />}
+     
       {name && <Guestbook />}
       {name && <LiveChat />}
       {name && <Album /> }
+      {name && <ShareButtons name={name} message={message} />}
     </div>
   );
 }

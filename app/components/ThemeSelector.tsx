@@ -6,14 +6,14 @@ interface Props {
 
 const ThemeSelector: React.FC<Props> = ({ setTheme }) => {
   return (
-    <div className="flex gap-2 mt-4">
-      <button className="px-4 py-2 bg-pink-500 rounded-lg" onClick={() => setTheme("pink")}>
+    <div className="flex gap-1 mt-2">
+      <button className="px-2 py-0 bg-pink-500 rounded-lg" onClick={() => setTheme("pink")}>
         🎀 Pink
       </button>
-      <button className="px-4 py-2 bg-blue-500 rounded-lg" onClick={() => setTheme("blue")}>
+      <button className="px-2 py-0 bg-blue-500 rounded-lg" onClick={() => setTheme("blue")}>
         🌊 Blue
       </button>
-      <button className="px-4 py-2 bg-green-500 rounded-lg" onClick={() => setTheme("green")}>
+      <button className="px-2 py-0 bg-green-500 rounded-lg" onClick={() => setTheme("green")}>
         🌿 Green
       </button>
     </div>
