@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const Album: React.FC = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -38,7 +39,7 @@ const Album: React.FC = () => {
         ) : (
           images.map((src, index) => (
             <div key={index} className="relative group overflow-hidden rounded-lg shadow-md">
-              <img
+              <Image
                 src={src}
                 alt="Birthday Memory"
                 className="w-full h-40 object-cover transform group-hover:scale-110 transition-transform duration-300"

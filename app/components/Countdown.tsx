@@ -7,6 +7,21 @@ interface Props {
 }
 
 const Countdown: React.FC<Props> = ({ targetDate }) => {
+  const [isMounted, setIsMounted] = useState(false); // ✅ Prevent SSR mismatch
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    isBirthday: false,
+  });
+
+  // ✅ Ensure countdown only runs on the client
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // ✅ Calculate time left
   const calculateTimeLeft = useCallback(() => {
     const difference = new Date(targetDate).getTime() - new Date().getTime();
 
@@ -23,15 +38,20 @@ const Countdown: React.FC<Props> = ({ targetDate }) => {
     };
   }, [targetDate]);
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
+  // ✅ Start countdown only after mounting
   useEffect(() => {
-    const timer = setTimeout(() => {
+    if (!isMounted) return;
+
+    setTimeLeft(calculateTimeLeft());
+    const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [timeLeft, calculateTimeLeft]);
+    return () => clearInterval(timer);
+  }, [isMounted, calculateTimeLeft]);
+
+  // ✅ Prevent hydration error by rendering null initially
+  if (!isMounted) return null;
 
   return (
     <div className="text-3xl font-bold flex items-center space-x-3">
