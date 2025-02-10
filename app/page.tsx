@@ -13,10 +13,11 @@ import CakeAnimation from "./components/CakeAnimation";
 import RandomQuotes from "./components/RandomQuotes";
 import ScreenshotButton from "./components/ScreenshotButton";
 import Guestbook from "./components/Guestbook";
-import HandwrittenNote from "./components/HandwrittenNote";
 import LiveChat from "./components/LiveChat";
 import Album from "./components/Album";
 import CandleEffect from "./components/CandleEffect";
+import MobileStatusBar from "./components/MobileStatusBar";
+import BirthdayMusic from "./components/BirthdayMusic";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -36,6 +37,8 @@ export default function Home() {
     backgroundPosition: "center",
   }}
 >
+  <MobileStatusBar />
+  
 <Countdown targetDate="2025-02-12" />
       <h1 className="md:text-5xl text-xl font-bold mb-1">🎂 Create a Birthday Wish! 🎈</h1>
   <CandleEffect />
@@ -64,7 +67,6 @@ export default function Home() {
           <Balloons />
           
           <RandomQuotes />
-          <HandwrittenNote message={message} />
         </>
       )}
 
@@ -80,6 +82,7 @@ export default function Home() {
           </button>
 
           <ScreenshotButton />
+          <BirthdayMusic />
         </>
       )}
 

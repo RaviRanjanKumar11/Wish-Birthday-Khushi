@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const CandleEffect: React.FC = () => {
   const [candles, setCandles] = useState([true, true, true, true]); // 4 candles lit
@@ -18,6 +19,9 @@ const CandleEffect: React.FC = () => {
       
       <div className="flex space-x-6">
         {candles.map((lit, index) => (
+           <motion.div 
+           className=""
+           animate={{ y: [0, -3, 0] }} transition={{ duration: 2, repeat: Infinity }}>
           <div key={index} className="relative cursor-pointer" onClick={() => blowOutCandle(index)}>
             {/* Candle Stick */}
             <div className="w-5 h-12 bg-pink-500 rounded-b-lg"></div>
@@ -34,6 +38,7 @@ const CandleEffect: React.FC = () => {
               </div>
             )}
           </div>
+          </motion.div>
         ))}
       </div>
 
@@ -41,6 +46,7 @@ const CandleEffect: React.FC = () => {
         <p className="mt-1 text-sm text-green-600 animate-fade-in">✨ Make a wish! ✨</p>
       )}
     </div>
+    
   );
 };
 
