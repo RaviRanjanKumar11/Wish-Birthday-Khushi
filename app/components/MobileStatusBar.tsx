@@ -31,24 +31,24 @@ const MobileStatusBar: React.FC = () => {
     }
   }, []);
 
-  // Get Battery Percentage
   useEffect(() => {
-    if (navigator.getBattery) {
-      navigator.getBattery().then((battery) => {
-        const updateBattery = () => {
-          const level = Math.round(battery.level * 100);
-          setBattery(level);
-        };
-
-        updateBattery();
-        battery.addEventListener("levelchange", updateBattery);
-
-        return () => {
-          battery.removeEventListener("levelchange", updateBattery);
-        };
-      });
-    }
-  }, []);
+     if ((navigator as any).getBattery) {
+       (navigator as any).getBattery().then((battery: any) => {
+         const updateBattery = () => {
+           const level = Math.round(battery.level * 100);
+           setBattery(level);
+         };
+   
+         updateBattery();
+         battery.addEventListener("levelchange", updateBattery);
+   
+         return () => {
+           battery.removeEventListener("levelchange", updateBattery);
+         };
+       });
+     }
+   }, []);
+   
 
   // Update Network Status
   useEffect(() => {
