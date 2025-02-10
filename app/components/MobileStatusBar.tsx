@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const MobileStatusBar: React.FC = () => {
-  const [location, setLocation] = useState({ state: "Unknown", town: "Unknown" });
-  const [battery, setBattery] = useState<number | null>(null);
+  const [location, setLocation] = useState<{ state: string; town: string }>({
+    state: "Unknown",
+    town: "Unknown",
+  });
   const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
   const [currentTime, setCurrentTime] = useState<string>(new Date().toLocaleTimeString());
 
@@ -16,8 +18,10 @@ const MobileStatusBar: React.FC = () => {
         async (position) => {
           const { latitude, longitude } = position.coords;
           try {
-            const response = await fetch(`https://geocode.maps.co/reverse?lat=${latitude}&lon=${longitude}&format=json`);
-            const data = await response.json();
+            const response = await fetch(
+              `https://geocode.maps.co/reverse?lat=${latitude}&lon=${longitude}&format=json`
+            );
+            const data: { address?: { state?: string; town?: string; city?: string } } = await response.json();
             setLocation({
               state: data.address?.state || "Unknown",
               town: data.address?.town || data.address?.city || "Unknown",
@@ -30,25 +34,6 @@ const MobileStatusBar: React.FC = () => {
       );
     }
   }, []);
-
-  useEffect(() => {
-     if ((navigator as any).getBattery) {
-       (navigator as any).getBattery().then((battery: any) => {
-         const updateBattery = () => {
-           const level = Math.round(battery.level * 100);
-           setBattery(level);
-         };
-   
-         updateBattery();
-         battery.addEventListener("levelchange", updateBattery);
-   
-         return () => {
-           battery.removeEventListener("levelchange", updateBattery);
-         };
-       });
-     }
-   }, []);
-   
 
   // Update Network Status
   useEffect(() => {
@@ -88,11 +73,6 @@ const MobileStatusBar: React.FC = () => {
       {/* Time */}
       <motion.div animate={{ rotate: [0, 5, -5, 0] }} transition={{ duration: 1, repeat: Infinity }}>
         🕒 {currentTime}
-      </motion.div>
-
-      {/* Battery */}
-      <motion.div animate={{ opacity: [1, 0.8, 1] }} transition={{ duration: 1, repeat: Infinity }}>
-        🔋 {battery !== null ? `${battery}%` : "--%"}
       </motion.div>
 
       {/* Network Status */}
