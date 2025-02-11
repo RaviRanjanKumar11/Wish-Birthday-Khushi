@@ -24,7 +24,7 @@ const MobileStatusBar: React.FC = () => {
             const data: { address?: { state?: string; town?: string; city?: string } } = await response.json();
             setLocation({
               state: data.address?.state || "Unknown",
-              town: data.address?.town || data.address?.city || "Unknown",
+              town: data.address?.town || data.address?.city || "Unknown",  
             });
           } catch (error) {
             console.error("Error fetching location:", error);

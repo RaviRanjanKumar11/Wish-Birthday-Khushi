@@ -28,20 +28,25 @@ export default function Home() {
   const [showSurprise, setShowSurprise] = useState(false);
   const [playMusic, setPlayMusic] = useState(false);
 
+  // Generate Robohash Avatar URL based on the entered name
+  const avatarUrl = name ? `https://robohash.org/${name}?set=set4&size=200x200` : null;
+
   return (
     <div
-  className="min-h-screen flex flex-col items-center justify-center text-white bg-cover bg-center relative px-2"
-  style={{
-    backgroundImage: "url('/khushi.png')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
->
-  <MobileStatusBar />
-  
-<Countdown targetDate="2025-02-12" />
+      className="min-h-screen flex flex-col items-center justify-center text-white bg-cover bg-center relative px-2"
+      style={{
+        backgroundImage: "url('/khushi.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <MobileStatusBar />
+      <Countdown targetDate="2025-02-12" />
+      
       <h1 className="md:text-5xl text-xl font-bold mb-1">🎂 Create a Birthday Wish! 🎈</h1>
-  <CandleEffect />
+      <CandleEffect />
+
+      {/* Input for Name */}
       <input
         type="text"
         placeholder="Enter Name..."
@@ -50,6 +55,9 @@ export default function Home() {
         className="px-2 py-1 rounded-md text-black"
       />
 
+     
+
+      {/* Message Input */}
       <textarea
         placeholder="Write a personalized message..."
         value={message}
@@ -65,7 +73,6 @@ export default function Home() {
           <BirthdayCard name={name} message={message} image={image} theme={theme} />
           <ConfettiEffect />
           <Balloons />
-          
           <RandomQuotes />
         </>
       )}
@@ -82,15 +89,26 @@ export default function Home() {
           </button>
 
           <ScreenshotButton />
+
+
+ {/* Display Robohash Avatar */}
+ {avatarUrl && (
+        <img
+          src={avatarUrl}
+          alt="Birthday Avatar"
+          className="w-40 h-40 rounded-full border-4 border-yellow-300 shadow-lg mt-3"
+        />
+      )}
+
           <BirthdayMusic />
         </>
       )}
 
       {showSurprise && <CakeAnimation />}
-     
+
       {name && <Guestbook />}
       {name && <LiveChat />}
-      {name && <Album /> }
+      {name && <Album />}
       {name && <ShareButtons name={name} message={message} />}
     </div>
   );

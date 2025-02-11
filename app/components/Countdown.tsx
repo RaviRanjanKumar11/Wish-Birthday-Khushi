@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Countdown: React.FC<Props> = ({ targetDate }) => {
-  const [isMounted, setIsMounted] = useState(false); // ✅ Prevent SSR mismatch
+  const [isClient, setIsClient] = useState(false); // Track if component is mounted
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -16,17 +16,29 @@ const Countdown: React.FC<Props> = ({ targetDate }) => {
     isBirthday: false,
   });
 
-  // ✅ Ensure countdown only runs on the client
   useEffect(() => {
-    setIsMounted(true);
+    setIsClient(true); // Set after mounting to avoid SSR mismatch
   }, []);
 
-  // ✅ Calculate time left
   const calculateTimeLeft = useCallback(() => {
-    const difference = new Date(targetDate).getTime() - new Date().getTime();
+    if (!isClient) return timeLeft; // Prevent calculation before mount
+
+    const now = new Date();
+    const target = new Date(targetDate);
+    target.setHours(0, 0, 0, 0); // Ensure target is at midnight
+
+    const difference = target.getTime() - now.getTime();
+    const isBirthdayToday =
+      now.getFullYear() === target.getFullYear() &&
+      now.getMonth() === target.getMonth() &&
+      now.getDate() === target.getDate();
+
+    if (isBirthdayToday) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0, isBirthday: true };
+    }
 
     if (difference <= 0) {
-      return { days: 0, hours: 0, minutes: 0, seconds: 0, isBirthday: true };
+      return { days: 0, hours: 0, minutes: 0, seconds: 0, isBirthday: false };
     }
 
     return {
@@ -36,11 +48,10 @@ const Countdown: React.FC<Props> = ({ targetDate }) => {
       seconds: Math.floor((difference / 1000) % 60),
       isBirthday: false,
     };
-  }, [targetDate]);
+  }, [targetDate, isClient]);
 
-  // ✅ Start countdown only after mounting
   useEffect(() => {
-    if (!isMounted) return;
+    if (!isClient) return;
 
     setTimeLeft(calculateTimeLeft());
     const timer = setInterval(() => {
@@ -48,14 +59,13 @@ const Countdown: React.FC<Props> = ({ targetDate }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [isMounted, calculateTimeLeft]);
+  }, [isClient, calculateTimeLeft]);
 
-  // ✅ Prevent hydration error by rendering null initially
-  if (!isMounted) return null;
+  // Prevent SSR mismatch by rendering nothing until mounted
+  if (!isClient) return null;
 
   return (
     <div className="text-3xl font-bold flex items-center space-x-3">
-      {/* 🔄 Animated Loader */}
       {!timeLeft.isBirthday && (
         <div className="flex space-x-1">
           <span className="w-3 h-3 bg-blue-500 rounded-full animate-ping"></span>
@@ -63,8 +73,6 @@ const Countdown: React.FC<Props> = ({ targetDate }) => {
           <span className="w-3 h-3 bg-blue-500 rounded-full animate-ping"></span>
         </div>
       )}
-
-      {/* ⏳ Countdown Text */}
       <span>
         {timeLeft.isBirthday
           ? "🎉 It's Khushi's Birthday! 🎂"
